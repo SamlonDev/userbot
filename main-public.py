@@ -1,4 +1,5 @@
 import discord
+import os
 
 intents = discord.Intents.all()
 bot = discord.Bot(intents=intents)
@@ -48,4 +49,4 @@ if __name__ == '__main__':
         bot.load_extension(extension)
         print(f'Loaded {extension}') # so I can know if I am not retarded
 
-bot.run('MTMwNTg5MDk2NTE5Mzc1MjYxNg.GsoZzY.OpQWGpwy2xfQzG--AwDdX7nVVbGm9C2bM-Stho')
+bot.run(os.getenv("TOKEN"))
