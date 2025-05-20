@@ -3,6 +3,7 @@ import discord
 from discord.ext import commands
 from discord import (ApplicationContext, Embed, IntegrationType,
                      InteractionContextType)
+import os
 
 
 class Google(commands.Cog):
@@ -31,7 +32,7 @@ class Google(commands.Cog):
         I can't believe you made this you are so good gwachan :3
         '''
         await ctx.defer()
-        genai.configure(api_key="AIzaSyDfclWcaidEK-F0kdP9M3Qb8ehY7C09Xxc")
+        genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
         model = genai.GenerativeModel("gemini-1.5-flash")
         response = model.generate_content(
             text+"\n write it in 50 words",
