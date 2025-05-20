@@ -1,5 +1,8 @@
 import discord
 import os
+import dotenv
+
+dotenv.load_dotenv()
 
 intents = discord.Intents.all()
 bot = discord.Bot(intents=intents)
@@ -42,4 +45,4 @@ if __name__ == '__main__':
         print(f"Loaded {i}/{len(extensions)} extensions")
 
 
-bot.run(str(os.getenv("TOKEN")))
+bot.run(os.getenv("TOKEN"))
