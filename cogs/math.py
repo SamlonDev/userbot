@@ -11,7 +11,7 @@ class Math(commands.Cog):
     @commands.slash_command(
         name="math", 
         description="do math",
-                integration_types=[
+        integration_types=[
             IntegrationType.user_install
         ],
         contexts=[
@@ -37,7 +37,7 @@ class Math(commands.Cog):
             result = subprocess.check_output(f"qalc -e {equation}", shell=True)
             await ctx.respond(f"{equation} = {result.decode('utf-8').strip()}")
         except subprocess.CalledProcessError as e:
-            await ctx.respond(e)
+            await ctx.respond(e, ephemeral=True)
             print(e)
     
 
