@@ -1,15 +1,8 @@
-from discord import (ApplicationContext, Embed, IntegrationType,
+from discord import (ApplicationContext, IntegrationType,
                      InteractionContextType)
 from discord.ext import commands
-import discord
-import re
+import subprocess
 
-class SubMath():
-    def calculate(expression):
-        expression = expression.replace("x", "*")
-        expression = expression.replace("÷", "/")
-        expression = expression.replace("^", "**")
-        return eval(expression)
     
 class Math(commands.Cog):
     def __init__(self, bot):
@@ -28,8 +21,25 @@ class Math(commands.Cog):
         ]
     )
     async def math(self, ctx: ApplicationContext, equation: str):
-        result = SubMath.calculate(equation)
-        await ctx.respond(f"{equation} = {result}")
+        """
+        Evaluates a mathematical expression using the qalc program.
+
+        Parameters:
+        equation (str): The mathematical expression to evaluate. This expression is passed directly to the qalc program.
+
+        Returns:
+        str: The result of the evaluation. If the expression is invalid, an error message is returned.
+
+        Raises:
+        subprocess.CalledProcessError: If the qalc program returns an error.
+        """
+        try:
+            result = subprocess.check_output(f"qalc -e {equation}", shell=True)
+            await ctx.respond(f"{equation} = {result.decode('utf-8').strip()}")
+        except subprocess.CalledProcessError as e:
+            await ctx.respond(e)
+            print(e)
+    
 
 def setup(bot):
     bot.add_cog(Math(bot))
