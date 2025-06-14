@@ -1,13 +1,16 @@
-from discord import (ApplicationContext, Embed, IntegrationType,
-                     InteractionContextType)
-from discord.ext import commands
-import discord
 import re
 
-class pattern():
+import discord
+from discord import (ApplicationContext, IntegrationType,
+                     InteractionContextType)
+from discord.ext import commands
+
+
+class Pattern:
     def __init__(self, text):
         self.text = text
-    def russia(text):
+
+    def russia(self):
         russian_patterns = [
             (r"[Ww]", "в"),
             (r"[Ee]", "е"),
@@ -37,11 +40,12 @@ class pattern():
         ]
 
         for pattern, replacement in russian_patterns:
-            text = re.sub(pattern, replacement, text)
-        
-        return text
+            self = re.sub(pattern, replacement, self)
 
-class russian(commands.Cog):
+        return self
+
+
+class Russian(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -58,7 +62,7 @@ class russian(commands.Cog):
         ]
     )
     async def russian(self, ctx: ApplicationContext, text: str):
-        await ctx.respond(pattern.russia(text))
+        await ctx.respond(Pattern.russia(text))
         return
 
     @commands.message_command(
@@ -74,8 +78,9 @@ class russian(commands.Cog):
         ]
     )
     async def russian(self, ctx: ApplicationContext, message: discord.Message):
-        await ctx.respond(pattern.russia(message.content))
+        await ctx.respond(Pattern.russia(message.content))
         return
 
+
 def setup(bot):
-    bot.add_cog(russian(bot))
+    bot.add_cog(Russian(bot))

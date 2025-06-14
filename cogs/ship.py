@@ -1,14 +1,17 @@
-from discord import (ApplicationContext, Embed, IntegrationType,
+import random
+
+import discord
+from discord import (ApplicationContext, IntegrationType,
                      InteractionContextType)
 from discord.ext import commands
-import random
-import discord
+
 
 class Ship(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    async def ship_users(self, ctx: ApplicationContext, user1: discord.Member, user2: discord.Member):
+    @staticmethod
+    async def ship_users(ctx: ApplicationContext, user1: discord.Member, user2: discord.Member):
         love = random.randint(1, 100)
         if love <= 35:
             emoji = ":broken_heart:"
@@ -16,7 +19,8 @@ class Ship(commands.Cog):
             emoji = ":heart:"
         else:
             emoji = ":sparkling_heart:"
-        await ctx.respond(content=(f"{emoji} **{user1.display_name}** is compatible with **{user2.display_name}** in **{love}%**! {emoji}"))
+        await ctx.respond(
+            content=f"{emoji} **{user1.display_name}** is compatible with **{user2.display_name}** in **{love}%**! {emoji}")
 
     @commands.slash_command(
         name="ship",
@@ -31,10 +35,10 @@ class Ship(commands.Cog):
         ]
     )
     async def ship(
-        self,
-        ctx: ApplicationContext,
-        user1: discord.Member,
-        user2: discord.Member,
+            self,
+            ctx: ApplicationContext,
+            user1: discord.Member,
+            user2: discord.Member,
     ):
         await self.ship_users(ctx, user1, user2)
 
@@ -51,9 +55,9 @@ class Ship(commands.Cog):
         ]
     )
     async def ship_user(
-        self,
-        ctx: ApplicationContext,
-        user2: discord.Member
+            self,
+            ctx: ApplicationContext,
+            user2: discord.Member
     ):
         await self.ship_users(ctx, ctx.author, user2)
 

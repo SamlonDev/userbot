@@ -1,9 +1,11 @@
-from discord import (ApplicationContext, Embed, IntegrationType,
-                     InteractionContextType)
-from discord.ext import commands
 import random
 
-class dice(commands.Cog):
+from discord import (ApplicationContext, IntegrationType,
+                     InteractionContextType)
+from discord.ext import commands
+
+
+class Dice(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -20,13 +22,14 @@ class dice(commands.Cog):
         ]
     )
     async def dice(
-        self, 
-        ctx: ApplicationContext, 
-        number: int
+            self,
+            ctx: ApplicationContext,
+            number: int
     ):
         dice_roll = random.randint(1, number)
         await ctx.respond(f"d{number} rolled {dice_roll}")
         return
 
+
 def setup(bot):
-    bot.add_cog(dice(bot))
+    bot.add_cog(Dice(bot))

@@ -8,8 +8,7 @@ import pytube
 import urllib.parse
 
 
-
-class web(commands.Cog):
+class Web(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -26,12 +25,13 @@ class web(commands.Cog):
         ]
     )
     async def web(
-        self,
-        ctx: ApplicationContext,
-        query: str
+            self,
+            ctx: ApplicationContext,
+            query: str
     ):
         await ctx.defer(ephemeral=True)
-        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
         url = f"https://duckduckgo.com/html/?q={query}"
         response = requests.get(url, headers=headers)
 
@@ -54,8 +54,10 @@ class web(commands.Cog):
                             pass
                     embed.add_field(name=f"Result {i}", value=f"[{title}]({link.get('href')})", inline=False)
                     button = discord.ui.Button(label=f"Send Result {i}")
+
                     async def button_callback(interaction: discord.Interaction, link=link):
                         await interaction.response.send_message(link.get('href'))
+
                     button.callback = button_callback
                     view.add_item(button)
                 await ctx.respond(embed=embed, view=view, ephemeral=True)
@@ -66,4 +68,4 @@ class web(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(web(bot))
+    bot.add_cog(Web(bot))

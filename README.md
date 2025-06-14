@@ -1,15 +1,13 @@
-
 fish
-
 
 this is a pycord user-installed bot made by salmon, can be used strictly for user install (main.py) or both (main-public.py)
 
-quick look at the features:
+a quick look at the features:
 
 cuddle.py:
 Chooses a random gif and puts it in an embed
 Requires 2 users
-Has a button to "cuddle back"
+to have a button to "cuddle back"
 Works by manually choosing the user or by using the app on the user (user_command)
 
 dice.py:
@@ -21,7 +19,7 @@ uses google's AI API to call the generative AI and return the message generated 
 hug.py:
 cuddle.py but different
 
-hvh.py:
+HVH.py:
 a simple game that was mainly to test buttons and embeds
 
 kiss.py:
@@ -30,38 +28,38 @@ cuddle.py but different
 ksi.py:
 :Sad:
 
-owoify.py:
-using the god forsaken regex, it takes the user text and changes it according to the pattern, adding a suffix at the end
+Owoify.py:
+using the godforsaken regex, it takes the user text and changes it according to the Pattern, adding a suffix at the end
 
-ping.py:
+Ping.py:
 returns the bot's latency
 
-rate.py:
-takes 2 strings and generates a number between 1 and 100
+Rate.py:
+takes two strings and generates a number between 1 and 100
 
-russian.py:
-owoify.py but different pattern and no suffix
+Russian.py:
+Owoify.py but different Pattern and no suffix
 
 ship.py:
-rate.py but different
+Rate.py but different
 
-slots.py:
+Slots.py:
 from symbols, generate a number and choose the symbol accordingly, then compare them to check if they are the same
 
-speechbubble.py:
-take the user sent image, resize speechbubble and slap it on top of the image
+Speechbubble.py:
+take the user-sent image, resize Speechbubble and slap it on top of the image
 
-transparentspeechbubble.py:
-much codenza to create a transparent speechbubble and slap it onto the image
+Transparentspeechbubble.py:
+much codenza to create a transparent Speechbubble and slap it onto the image
 
-weather.py:
-call openweather api and check for weather
+Weather.py:
+call openweather api and check for Weather
 
-web.py:
+Web.py:
 request links from duckduckgo
-get titles from links using BS4 (pytube for youtube link)
+get titles from links using BS4 (pytube for YouTube links)
 put them in the embed in [link](actuallink) with buttons
 user chooses the link, bot sends it
 
 wojack.py:
-get random image and put it in an embed
+get a random image and put it in an embed

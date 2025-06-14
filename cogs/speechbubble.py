@@ -1,13 +1,14 @@
-from discord import (ApplicationContext, Embed, IntegrationType,
-                     InteractionContextType, Attachment)
-import discord
-from discord.ext import commands
-import requests
 from io import BytesIO
+
+import discord
+import requests
 from PIL import Image
+from discord import (ApplicationContext, IntegrationType,
+                     InteractionContextType, Attachment)
+from discord.ext import commands
 
 
-class speechbubble(commands.Cog):
+class Speechbubble(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -24,11 +25,10 @@ class speechbubble(commands.Cog):
         ]
     )
     async def speechbubble(
-        self,
-        ctx: ApplicationContext,
-        image: Attachment
+            self,
+            ctx: ApplicationContext,
+            image: Attachment
     ):
-        
         response = requests.get(image.url)
         original_img = Image.open(BytesIO(response.content))
         overlay = Image.open('resources/speechbubble.png').convert("RGBA")
@@ -40,6 +40,7 @@ class speechbubble(commands.Cog):
             await ctx.respond(file=discord.File(fp=image_binary, filename='speechbubble.png'))
 
             return
-        
+
+
 def setup(bot):
-    bot.add_cog(speechbubble(bot))
+    bot.add_cog(Speechbubble(bot))

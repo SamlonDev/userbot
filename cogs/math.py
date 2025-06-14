@@ -3,13 +3,13 @@ from discord import (ApplicationContext, IntegrationType,
 from discord.ext import commands
 import subprocess
 
-    
+
 class Math(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-    
+
     @commands.slash_command(
-        name="math", 
+        name="math",
         description="do math",
         integration_types=[
             IntegrationType.user_install
@@ -39,7 +39,7 @@ class Math(commands.Cog):
         except subprocess.CalledProcessError as e:
             await ctx.respond(e, ephemeral=True)
             print(e)
-    
+
 
 def setup(bot):
     bot.add_cog(Math(bot))

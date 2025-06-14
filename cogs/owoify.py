@@ -1,16 +1,17 @@
 import random
 import re
 
-from discord import (ApplicationContext, Embed, IntegrationType,
+import discord
+from discord import (ApplicationContext, IntegrationType,
                      InteractionContextType)
 from discord.ext import commands
-import discord
 
-class owo:
+
+class Owoifier:
     def __init__(self, text):
         self.text = text
 
-    def owo(text): # pasted from SEOwned lmfao
+    def owo(self):  # pasted from SEOwned lmfao
         patterns = [
             ("r", "w"),
             ("R", "W"),
@@ -38,13 +39,14 @@ class owo:
         ]
 
         for pattern, replacement in patterns:
-            text = re.sub(pattern, replacement, text)
-        if len(text):
+            self = re.sub(pattern, replacement, self)
+        if len(self):
             suffix = random.choice(suffixes)
-            text += " " + suffix
-        return text
+            self += " " + suffix
+        return self
 
-class owoify(commands.Cog):
+
+class Owoify(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -61,12 +63,12 @@ class owoify(commands.Cog):
         ]
     )
     async def owoify(
-        self,
-        ctx: ApplicationContext,
-        text: str
+            self,
+            ctx: ApplicationContext,
+            text: str
     ):
-        await ctx.respond(owo.owo(str(text))) # use string moron
-    
+        await ctx.respond(Owoifier.owo(str(text)))  # use string moron
+
     @commands.message_command(
         name='owoify',
         description='owoify text',
@@ -80,12 +82,12 @@ class owoify(commands.Cog):
         ]
     )
     async def owoify(
-        self,
-        ctx: ApplicationContext,
-        message: discord.Message
+            self,
+            ctx: ApplicationContext,
+            message: discord.Message
     ):
-        await ctx.respond(owo.owo(str(message.content)))
-        
-    
+        await ctx.respond(Owoifier.owo(str(message.content)))
+
+
 def setup(bot):
-    bot.add_cog(owoify(bot))
+    bot.add_cog(Owoify(bot))

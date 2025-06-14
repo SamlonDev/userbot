@@ -1,9 +1,11 @@
-from discord import (ApplicationContext, Embed, IntegrationType,
+import os
+import random
+
+import discord
+from discord import (ApplicationContext, IntegrationType,
                      InteractionContextType)
 from discord.ext import commands
-import discord
-import random
-import os
+
 
 class KissView(discord.ui.View):
     def __init__(self, author, target):
@@ -12,11 +14,11 @@ class KissView(discord.ui.View):
         self.target = target
 
     @discord.ui.button(label="Kiss Back x3", style=discord.ButtonStyle.primary)
-    async def kiss_back(self, button: discord.ui.Button, interaction: discord.Interaction):
+    async def kiss_back(self, interaction: discord.Interaction):
         if interaction.user.id != self.target.id:
             await interaction.response.send_message("This kiss isn't for you to return!", ephemeral=True)
             return
-        
+
         # choose a random file from the folder
         file_path = os.path.join('D:\\XxMamCukrzycexX\\pycord\\main\\Userbot-salmon-mech\\resources\\kiss\\normal')
         files = [os.path.join(file_path, f) for f in os.listdir(file_path) if f.endswith('.gif')]
@@ -30,11 +32,11 @@ class KissView(discord.ui.View):
         self.stop()
 
     @discord.ui.button(label="Don't Kiss Back :c", style=discord.ButtonStyle.secondary)
-    async def no_kiss(self, button: discord.ui.Button, interaction: discord.Interaction):
+    async def no_kiss(self, interaction: discord.Interaction):
         if interaction.user.id != self.target.id:
             await interaction.response.send_message("This kiss isn't for you to reject!", ephemeral=True)
             return
-            
+
         embed = discord.Embed(
             title=f"{self.target.name} didn't want to kiss back :c",
             color=0xffc0cb
@@ -42,11 +44,13 @@ class KissView(discord.ui.View):
         await interaction.response.send_message(embed=embed)
         self.stop()
 
+
 class Kiss(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    async def kiss_user(self, ctx, user):
+    @staticmethod
+    async def kiss_user(ctx, user):
         await ctx.defer()
         file_path = os.path.join('D:\\XxMamCukrzycexX\\pycord\\main\\Userbot-salmon-mech\\resources\\kiss\\normal')
         files = [os.path.join(file_path, f) for f in os.listdir(file_path) if f.endswith('.gif')]
@@ -58,7 +62,7 @@ class Kiss(commands.Cog):
         embed.set_image(url="attachment://kiss.gif")
         view = KissView(ctx.author, user)
         await ctx.respond(file=file, embed=embed, view=view)
-    
+
     @commands.slash_command(
         name="kiss",
         description="Kiss another person x3",
@@ -72,12 +76,12 @@ class Kiss(commands.Cog):
         ]
     )
     async def kiss(
-        self,
-        ctx: ApplicationContext,
-        user: discord.Member
+            self,
+            ctx: ApplicationContext,
+            user: discord.Member
     ):
         await self.kiss_user(ctx, user)
-    
+
     @commands.user_command(
         name="kiss",
         description="Kiss another person x3",
@@ -91,9 +95,9 @@ class Kiss(commands.Cog):
         ]
     )
     async def user_kiss(
-        self,
-        ctx: ApplicationContext,
-        user: discord.Member
+            self,
+            ctx: ApplicationContext,
+            user: discord.Member
     ):
         await self.kiss_user(ctx, user)
 

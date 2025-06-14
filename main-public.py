@@ -26,7 +26,6 @@ if __name__ == '__main__':
         'cogs.ship',
         'cogs.dice',
         'cogs.transparentspeechbubble',
-        'cogs.hvh',
         'cogs.ksi',
         'cogs.kiss',
         'cogs.cuddle',

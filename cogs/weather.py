@@ -1,18 +1,19 @@
-from discord import (ApplicationContext, Embed, IntegrationType,
-                     InteractionContextType)
-from discord.ext import commands
-import discord
-import requests
-import json
 import os
 
-class weather(commands.Cog):
+import discord
+import requests
+from discord import (ApplicationContext, IntegrationType,
+                     InteractionContextType)
+from discord.ext import commands
+
+
+class Weather(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
     @commands.slash_command(
-        name="weather",
-        description="Check the weather in your city",
+        name="Weather",
+        description="Check the Weather in your city",
         integration_types=[
             IntegrationType.user_install
         ],
@@ -23,20 +24,20 @@ class weather(commands.Cog):
         ]
     )
     async def weather(
-        self, 
-        ctx: ApplicationContext,
-        city = discord.Option(str, "City to check weather in", required=False)
+            self,
+            ctx: ApplicationContext,
+            city=discord.Option(str, "City to check Weather in", required=False)
     ):
         await ctx.defer()
         api_key = os.getenv("WEATHER_API_KEY")
         current = "http://api.openweathermap.org/data/2.5/weather?"
-        
-        if city == None or city == "":
+
+        if city is None or city == "":
             if ctx.author.id == 323081571446030336:
                 city = "Kitchener"
             elif ctx.author.id == 1204201769006145556:
                 city = "Kiełczów"
-        
+
         complete_url = current + "appid=" + api_key + "&q=" + city + "&units=metric"
         response = requests.get(complete_url)
         x = response.json()
@@ -46,7 +47,7 @@ class weather(commands.Cog):
             current_feels_like = round(y["feels_like"])
             current_pressure = y["pressure"]
             current_humidiy = y["humidity"]
-            z = x["weather"]
+            z = x["Weather"]
             weather_description = z[0]["description"]
             embed = discord.Embed(
                 title=f"Weather in {city}",
@@ -61,5 +62,6 @@ class weather(commands.Cog):
         else:
             await ctx.respond("404 error faggit", ephemeral=True)
 
+
 def setup(bot):
-    bot.add_cog(weather(bot))
+    bot.add_cog(Weather(bot))
