@@ -35,7 +35,7 @@ class Math(commands.Cog):
         """
         try:
             result = subprocess.check_output(f"qalc -e {equation}", shell=True)
-            await ctx.respond(f"{equation} = {result.decode('utf-8').strip()}")
+            await ctx.respond(f"{result.decode('utf-8').strip()}")
         except subprocess.CalledProcessError as e:
             await ctx.respond(e, ephemeral=True)
             print(e)
