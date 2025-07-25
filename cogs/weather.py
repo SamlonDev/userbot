@@ -12,7 +12,7 @@ class Weather(commands.Cog):
         self.bot = bot
 
     @commands.slash_command(
-        name="Weather",
+        name="weather",
         description="Check the Weather in your city",
         integration_types=[
             IntegrationType.user_install
