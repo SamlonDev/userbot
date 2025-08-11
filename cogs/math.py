@@ -23,7 +23,7 @@ class Math(commands.Cog):
             InteractionContextType.guild,
         ]
     )
-    async def math(self, ctx: ApplicationContext, equation: str, member: discord.Member):
+    async def math(self, ctx: ApplicationContext, equation: str):
         """
         Evaluates a mathematical expression using the qalc program.
 
@@ -37,11 +37,7 @@ class Math(commands.Cog):
         subprocess.CalledProcessError: If the qalc program returns an error.
         """
         try:
-            if ";" in equation:
-                equation = equation.replace(";", " ")
-                await member.timeout(until=discord.utils.utcnow() + timedelta(days=7), reason="RCE gone wrong?")
-
-            result = subprocess.check_output(f"qalc -e {equation}", shell=True)
+            result = subprocess.check_output(f"qalc -e '{equation}'", shell=True)
             await ctx.respond(f"{result.decode('utf-8').strip()}")
         except subprocess.CalledProcessError as e:
             await ctx.respond(e, ephemeral=True)
