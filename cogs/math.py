@@ -37,6 +37,8 @@ class Math(commands.Cog):
         subprocess.CalledProcessError: If the qalc program returns an error.
         """
         try:
+            equation = equation.replace("'", "\\'").replace('"', '\\"')
+
             result = subprocess.check_output(f"qalc -e '{equation}'", shell=True)
             await ctx.respond(f"{result.decode('utf-8').strip()}")
         except subprocess.CalledProcessError as e:
